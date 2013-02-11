@@ -145,10 +145,13 @@ namespace RavenLoadTest
             var bubbles = new List<PutCommandData>();
             var troubles = new List<PutCommandData>();
 
-            for (int batch = 1; batch <= 100; batch++)
+            var batches = 100;
+            var itemCount = 5000;
+
+            for (int batch = 1; batch <= batches; batch++)
             {
                 // let's bulk insert 
-                for (int i = 1; i <= 5000; i++)
+                for (int i = 1; i <= itemCount; i++)
                 {
                     var metadata = new RavenJObject();
                     metadata["Raven-Entity-Name"] = "Bubbles";
@@ -166,7 +169,7 @@ namespace RavenLoadTest
 
                 Store.DatabaseCommands.Batch(bubbles);
 
-                for (int i = 1; i <= 5000; i++)
+                for (int i = 1; i <= itemCount; i++)
                 {
                     var metadata = new RavenJObject();
                     metadata["Raven-Entity-Name"] = "Troubles";
@@ -190,7 +193,7 @@ namespace RavenLoadTest
                 Console.WriteLine("Batch {0} of 100", batch);
             }
 
-            Console.WriteLine("Inserted a million items");
+            Console.WriteLine("Inserted a {0} items", (batches * (itemCount * 2)));
             Console.ReadLine();
         }
     }
