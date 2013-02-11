@@ -150,13 +150,17 @@ namespace RavenLoadTest
                 // let's bulk insert 
                 for (int i = 1; i <= 5000; i++)
                 {
+                    var metadata = new RavenJObject();
+                    metadata["Raven-Entity-Name"] = "Bubbles";
+                    metadata["Raven-Clr-Type"] = typeof(Bubble).FullName;
+
                     bubbles.Add(
                         new PutCommandData
                         {
-                            Document = RavenJObject.FromObject(new Bubble()),
+                            Document = RavenJObject.FromObject(new Bubble { Id = string.Format("bubbles/{0}/{1}", batch, i) }),
                             Etag = null,
                             Key = string.Format("bubbles/{0}/{1}", batch, i),
-                            Metadata = new RavenJObject(),
+                            Metadata = metadata,
                         });
                 }
 
@@ -164,13 +168,17 @@ namespace RavenLoadTest
 
                 for (int i = 1; i <= 5000; i++)
                 {
+                    var metadata = new RavenJObject();
+                    metadata["Raven-Entity-Name"] = "Troubles";
+                    metadata["Raven-Clr-Type"] = typeof(Trouble).FullName;
+
                     troubles.Add(
                         new PutCommandData
                         {
-                            Document = RavenJObject.FromObject(new Trouble()),
+                            Document = RavenJObject.FromObject(new Trouble { Id = string.Format("troubles/{0}/{1}", batch, i) }),
                             Etag = null,
                             Key = string.Format("troubles/{0}/{1}", batch, i),
-                            Metadata = new RavenJObject(),
+                            Metadata = metadata,
                         });
                 }
 
