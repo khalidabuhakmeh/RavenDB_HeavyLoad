@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Raven.Abstractions.Commands;
 using Raven.Abstractions.Indexing;
 using Raven.Client;
@@ -149,7 +148,7 @@ namespace RavenLoadTest
             for (int batch = 1; batch <= 100; batch++)
             {
                 // let's bulk insert 
-                for (int i = 1; i < 5000; i++)
+                for (int i = 1; i <= 5000; i++)
                 {
                     bubbles.Add(
                         new PutCommandData
@@ -163,7 +162,7 @@ namespace RavenLoadTest
 
                 Store.DatabaseCommands.Batch(bubbles);
 
-                for (int i = 0; i < 5000; i++)
+                for (int i = 1; i <= 5000; i++)
                 {
                     troubles.Add(
                         new PutCommandData
